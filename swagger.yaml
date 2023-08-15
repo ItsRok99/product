@@ -4,7 +4,8 @@ info:
   title: Product Service API
   description: API for managing products
 servers:
-  - url: http://localhost:3000
+  - url: https://product-045e.onrender.com
+  # - url: http://localhost:3000
   # - url: http://studentdocker.informatika.uni-mb.si: da port
     description: Local development server
 components:
