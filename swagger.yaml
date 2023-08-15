@@ -1,0 +1,173 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Product Service API
+  description: API for managing products
+servers:
+  - url: http://localhost:3000
+  # - url: http://studentdocker.informatika.uni-mb.si: da port
+    description: Local development server
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Product:
+      type: object
+      properties:
+        price:
+          type: number
+        name:
+          type: string
+        image:
+          type: string
+paths:
+  /products:
+    get:
+      security:
+        - BearerAuth: []
+      summary: Get all products
+      responses:
+        '200':
+          description: Successful response
+    post:
+      security:
+        - BearerAuth: []
+      summary: Create a new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the product
+                  example: Product Name
+                price:
+                  type: number
+                  description: Price of the product
+                  example: 9.99
+                description:
+                  type: string
+                  description: Description of the product
+                  example: Product description
+      responses:
+        '201':
+          description: Product created successfully
+
+  /products/{id}:
+    get:
+      security:
+        - BearerAuth: []
+      summary: Get a product by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Product ID
+      responses:
+        '200':
+          description: Successful response
+    put:
+      security:
+        - BearerAuth: []
+      summary: Update a product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Product ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Name of the product
+                  example: Product Name
+                price:
+                  type: number
+                  description: Price of the product
+                  example: 9.99
+                description:
+                  type: string
+                  description: Description of the product
+                  example: Product description
+      responses:
+        '200':
+          description: Product updated successfully
+    delete:
+      security:
+        - BearerAuth: []
+      summary: Delete a product by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Product ID
+      responses:
+        '200':
+          description: Product deleted successfully
+
+  /products/name/{name}:
+    delete:
+      security:
+        - BearerAuth: []
+      summary: Delete products by name
+      parameters:
+        - name: name
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Product name
+      responses:
+        '200':
+          description: Products with specified name deleted successfully
+
+  /products/price/{price}:
+    delete:
+      security:
+        - BearerAuth: []
+      summary: Delete products by price
+      parameters:
+        - name: price
+          in: path
+          required: true
+          schema:
+            type: number
+          description: Product price
+      responses:
+        '200':
+          description: Products with specified price deleted successfully
+
+  /products/getprice/{price}:
+    get:
+      security:
+        - BearerAuth: []
+      summary: Get products by price
+      parameters:
+        - name: price
+          in: path
+          required: true
+          schema:
+            type: number
+          description: Product price
+      responses:
+        '200':
+          description: Successful response
+
+
